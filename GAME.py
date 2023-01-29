@@ -301,25 +301,25 @@ while running:
             if wading == False:
                 x-=4
             else:
-                x-=1
+                x-=1.5
             K = "R"
         if event.key == pygame.K_LEFT:
             if wading == False:
                 x+=4
             else:
-                x+=1
+                x+=1.5
             K = "L"
         if event.key == pygame.K_UP:
             if wading == False:
                 y+=4
             else:
-                y+=1
+                y+=1.5
             K = "U"
         if event.key == pygame.K_DOWN:
             if wading == False:
                 y-=4
             else:
-                y-=1
+                y-=1.5
             K = "D"
 
 
