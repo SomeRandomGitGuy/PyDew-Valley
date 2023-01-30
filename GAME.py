@@ -164,7 +164,7 @@ Repeats = int((3000/spacing)-5)
 for i in range(Repeats):
     for x in range(40):
         CX = count*spacing
-        if random.randint(1,10) == (1 or 2):
+        if random.randint(1,10) < 3:
             tree_x.append(CX)
             tree_y.append(CY)
         else:
