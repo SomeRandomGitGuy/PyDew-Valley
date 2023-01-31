@@ -5,6 +5,7 @@ from pygame import mixer
 import sys
 import random
 
+
 # VARIABLES
 collide = 0
 wading = False
