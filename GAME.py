@@ -56,13 +56,21 @@ anumbrs = [anumbr1, anumbr2, anumbr3, anumbr4, anumbr5, anumbr6]
 bnumbrs = [bnumbr1, bnumbr2, bnumbr3, bnumbr4, bnumbr5, bnumbr6]
 hotbarid = [" "," "," "," "," "," "]
 hotbarslot = [0,0,0,0,0,0]
+ebar = []
+Electricity = 0
+
+for i in range(42):
+    ebar.append("Electric" + str(i+1))
+
+def Blit_EBAR():
+e1 = pygame.image.load(str((str(ebar[0])+".png"))).convert_alpha()
 
 
 
 
 
 
-# Initialise_pygame
+# Init Pygame
 pygame.init()
 
 # Set window size
