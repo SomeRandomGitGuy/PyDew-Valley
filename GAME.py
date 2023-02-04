@@ -58,12 +58,20 @@ hotbarid = [" "," "," "," "," "," "]
 hotbarslot = [0,0,0,0,0,0]
 ebar = []
 Electricity = 0
+e1 = 0
 
 for i in range(42):
     ebar.append("Electric" + str(i+1))
 
-def Blit_EBAR():
-e1 = pygame.image.load(str((str(ebar[0])+".png"))).convert_alpha()
+
+def Blit_EBAR(num):
+    if not num < 42:
+        e1 = pygame.image.load(str((str(ebar[41])+".png"))).convert_alpha()
+    else:
+        e1 = pygame.image.load(str((str(ebar[num])+".png"))).convert_alpha()
+    e1 = pygame.transform.scale(e1, (128, 256))
+    screen.blit(e1,(600,480))
+
 
 
 
@@ -372,6 +380,7 @@ while running:
             screen.blit(WFRONT, cpos)
     Blit_Trees(1)
     screen.blit(HOTBAR, Hotbar)
+    Blit_EBAR(Electricity)
     itempickup()
     #Blitting Hotbar
     if hotbaractive == 1:
