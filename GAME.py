@@ -7,6 +7,7 @@ import random
 
 
 # VARIABLES
+shopopen = 0
 collide = 0
 wading = False
 x = 0
@@ -125,6 +126,7 @@ n0 = pygame.image.load('Number-0.png').convert_alpha()
 MM = pygame.image.load('MM.png').convert_alpha()
 RIVER = pygame.image.load('RIVER.png').convert_alpha()
 numbers = [n0, n1, n2, n3, n4, n5, n6, n7, n8, n9]
+shop = pygame.image.load("Shop.png").convert_alpha()
 # Set the size for the image
 DEFAULT_IMAGE_SIZE = (3000,3000)
 siziofor = (200,200)
@@ -152,6 +154,7 @@ n7 = pygame.transform.scale(n7, HT)
 n8 = pygame.transform.scale(n8, HT)
 n9 = pygame.transform.scale(n9, HT)
 MM = pygame.transform.scale(MM, (740,500))
+shop = pygame.transform.scale(shop,(512,512))
 
 
 
@@ -382,6 +385,15 @@ while running:
     screen.blit(HOTBAR, Hotbar)
     Blit_EBAR(Electricity)
     itempickup()
+
+    for event in pygame.event.get():
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_s:
+                shopopen = not shopopen
+
+    if shopopen:
+        screen.blit(shop, (100, 100))
+
     #Blitting Hotbar
     if hotbaractive == 1:
         for i in range(6):
