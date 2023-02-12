@@ -396,9 +396,6 @@ while running:
                     screen.blit(temp,bnumbrs[i])
 
 
-
-
-
     pygame.display.flip()
         
 
