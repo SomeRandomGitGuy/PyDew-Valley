@@ -7,6 +7,7 @@ import random
 
 
 # VARIABLES
+shopop = 1
 shopopen = 0
 collide = 0
 wading = False
@@ -126,7 +127,9 @@ n0 = pygame.image.load('Number-0.png').convert_alpha()
 MM = pygame.image.load('MM.png').convert_alpha()
 RIVER = pygame.image.load('RIVER.png').convert_alpha()
 numbers = [n0, n1, n2, n3, n4, n5, n6, n7, n8, n9]
-shop = pygame.image.load("Shop.png").convert_alpha()
+shop1 = pygame.image.load("Shop1.png").convert_alpha()
+shop2 = pygame.image.load("Shop2.png").convert_alpha()
+
 # Set the size for the image
 DEFAULT_IMAGE_SIZE = (3000,3000)
 siziofor = (200,200)
@@ -154,7 +157,9 @@ n7 = pygame.transform.scale(n7, HT)
 n8 = pygame.transform.scale(n8, HT)
 n9 = pygame.transform.scale(n9, HT)
 MM = pygame.transform.scale(MM, (740,500))
-shop = pygame.transform.scale(shop,(512,512))
+shop1 = pygame.transform.scale(shop1,(512,512))
+shop2 = pygame.transform.scale(shop2,(512,512))
+
 
 
 
@@ -315,32 +320,40 @@ while running:
     else:
         wading = False
 
+    if shopopen == False:
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_RIGHT:
+                if wading == False:
+                    x-=4
+                else:
+                    x-=1.5
+                K = "R"
+            if event.key == pygame.K_LEFT:
+                if wading == False:
+                    x+=4
+                else:
+                    x+=1.5
+                K = "L"
+            if event.key == pygame.K_UP:
+                if wading == False:
+                    y+=4
+                else:
+                    y+=1.5
+                K = "U"
+            if event.key == pygame.K_DOWN:
+                if wading == False:
+                    y-=4
+                else:
+                    y-=1.5
+                K = "D"
+    else:
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_UP:
+                    shopop = 1
+            if event.key == pygame.K_DOWN:
+                    shopop = 2
 
-    if event.type == pygame.KEYDOWN:
-        if event.key == pygame.K_RIGHT:
-            if wading == False:
-                x-=4
-            else:
-                x-=1.5
-            K = "R"
-        if event.key == pygame.K_LEFT:
-            if wading == False:
-                x+=4
-            else:
-                x+=1.5
-            K = "L"
-        if event.key == pygame.K_UP:
-            if wading == False:
-                y+=4
-            else:
-                y+=1.5
-            K = "U"
-        if event.key == pygame.K_DOWN:
-            if wading == False:
-                y-=4
-            else:
-                y-=1.5
-            K = "D"
+
 
 
     TreeCollide()
@@ -392,7 +405,11 @@ while running:
                 shopopen = not shopopen
 
     if shopopen:
-        screen.blit(shop, (100, 100))
+        if shopop == 1:
+            screen.blit(shop1, (100, 100))
+        else:
+            screen.blit(shop2, (100, 100))
+
 
     #Blitting Hotbar
     if hotbaractive == 1:
