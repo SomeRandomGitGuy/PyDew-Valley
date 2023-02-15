@@ -216,6 +216,9 @@ def Blit_Trees(Type):
             screen.blit(image6,(tree_x[i]+x,tree_y[i]+y))
         TreeCurrentx.append(tree_x[i]+x)
         TreeCurrenty.append(tree_y[i]+y)
+
+def Create_Building(ID):
+    print("yes")
 def Blit_Stones():
     for i in range(len(stone_x)):
             screen.blit(image7,(stone_x[i]+x,stone_y[i]+y))
@@ -403,6 +406,10 @@ while running:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_s:
                 shopopen = not shopopen
+            if event.key == pygame.K_RETURN:
+                shopopen = False
+                Create_Building(1)
+
 
     if shopopen:
         if shopop == 1:
