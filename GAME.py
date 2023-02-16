@@ -7,6 +7,7 @@ import random
 
 
 # VARIABLES
+buildings = 0
 shopop = 1
 shopopen = 0
 collide = 0
@@ -61,6 +62,9 @@ hotbarslot = [0,0,0,0,0,0]
 ebar = []
 Electricity = 0
 e1 = 0
+Buildingx = []
+Buildingy = []
+BuildingID = []
 
 for i in range(42):
     ebar.append("Electric" + str(i+1))
@@ -73,9 +77,6 @@ def Blit_EBAR(num):
         e1 = pygame.image.load(str((str(ebar[num])+".png"))).convert_alpha()
     e1 = pygame.transform.scale(e1, (128, 256))
     screen.blit(e1,(600,480))
-
-
-
 
 
 
@@ -129,6 +130,8 @@ RIVER = pygame.image.load('RIVER.png').convert_alpha()
 numbers = [n0, n1, n2, n3, n4, n5, n6, n7, n8, n9]
 shop1 = pygame.image.load("Shop1.png").convert_alpha()
 shop2 = pygame.image.load("Shop2.png").convert_alpha()
+Solar = pygame.image.load("Solar.png").convert_alpha()
+
 
 # Set the size for the image
 DEFAULT_IMAGE_SIZE = (3000,3000)
@@ -217,8 +220,31 @@ def Blit_Trees(Type):
         TreeCurrentx.append(tree_x[i]+x)
         TreeCurrenty.append(tree_y[i]+y)
 
-def Create_Building(ID):
-    print("yes")
+def Create_Building(id):
+    global buildings
+    global Electricity
+    buildings = 1
+    newx = x*-1
+    newy = y*-1
+    BuildingID.append(id)
+    if id == 1:
+        Electricity +=5
+        Buildingx.append(newx + 320)
+        Buildingy.append(newy + 300)
+    else:
+        Electricity +=10
+        Buildingx.append(newx + 270)
+        Buildingy.append(newy + 100)
+
+def Blit_Building():
+    if buildings == 1:
+        for i in range(len(Buildingx)):
+            if BuildingID[i] == 1:
+                screen.blit(Solar,(Buildingx[i]+x,Buildingy[i]+y))
+            if BuildingID[i] == 2:
+                screen.blit(Wind1,(Buildingx[i]+x,Buildingy[i]+y))
+
+
 def Blit_Stones():
     for i in range(len(stone_x)):
             screen.blit(image7,(stone_x[i]+x,stone_y[i]+y))
@@ -373,6 +399,7 @@ while running:
         collide = 0
     Blit_Items()
     Blit_Trees(0)
+    Blit_Building()
     screen.blit(RIVER, (0 + x, 972 + y))
 
 
@@ -408,7 +435,10 @@ while running:
                 shopopen = not shopopen
             if event.key == pygame.K_RETURN:
                 shopopen = False
-                Create_Building(1)
+                if shopop == 1:
+                    Create_Building(1)
+                else:
+                    Create_Building(2)
 
 
     if shopopen:
