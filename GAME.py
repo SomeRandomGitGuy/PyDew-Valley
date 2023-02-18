@@ -65,6 +65,8 @@ e1 = 0
 Buildingx = []
 Buildingy = []
 BuildingID = []
+buildimage = 0
+framecount = 0
 
 for i in range(42):
     ebar.append("Electric" + str(i+1))
@@ -131,6 +133,7 @@ numbers = [n0, n1, n2, n3, n4, n5, n6, n7, n8, n9]
 shop1 = pygame.image.load("Shop1.png").convert_alpha()
 shop2 = pygame.image.load("Shop2.png").convert_alpha()
 Solar = pygame.image.load("Solar.png").convert_alpha()
+wind = [Wind1,Wind2,Wind3,Wind4,Wind5,Wind6,Wind7]
 
 
 # Set the size for the image
@@ -228,21 +231,23 @@ def Create_Building(id):
     newy = y*-1
     BuildingID.append(id)
     if id == 1:
-        Electricity +=5
+        Electricity +=2
         Buildingx.append(newx + 320)
         Buildingy.append(newy + 300)
     else:
-        Electricity +=10
+        Electricity +=5
         Buildingx.append(newx + 270)
         Buildingy.append(newy + 100)
 
 def Blit_Building():
+    global buildimage
     if buildings == 1:
         for i in range(len(Buildingx)):
             if BuildingID[i] == 1:
                 screen.blit(Solar,(Buildingx[i]+x,Buildingy[i]+y))
             if BuildingID[i] == 2:
-                screen.blit(Wind1,(Buildingx[i]+x,Buildingy[i]+y))
+                screen.blit(wind[round(buildimage)],(Buildingx[i]+x,Buildingy[i]+y))
+    buildimage = framecount % 7
 
 
 def Blit_Stones():
@@ -461,7 +466,7 @@ while running:
                     temp = numbers[sep[1]]
                     screen.blit(temp,bnumbrs[i])
 
-
+    framecount +=0.5
     pygame.display.flip()
         
 
