@@ -4,9 +4,10 @@ import pygame
 from pygame import mixer
 import sys
 import random
-
+import math
 
 # VARIABLES
+money = 0
 buildings = 0
 shopop = 1
 shopopen = 0
@@ -134,6 +135,7 @@ shop1 = pygame.image.load("Shop1.png").convert_alpha()
 shop2 = pygame.image.load("Shop2.png").convert_alpha()
 Solar = pygame.image.load("Solar.png").convert_alpha()
 wind = [Wind1,Wind2,Wind3,Wind4,Wind5,Wind6,Wind7]
+Money = pygame.image.load("Money..png")
 
 
 # Set the size for the image
@@ -165,6 +167,7 @@ n9 = pygame.transform.scale(n9, HT)
 MM = pygame.transform.scale(MM, (740,500))
 shop1 = pygame.transform.scale(shop1,(512,512))
 shop2 = pygame.transform.scale(shop2,(512,512))
+Money = pygame.transform.scale(Money,(192,96))
 
 
 
@@ -465,6 +468,17 @@ while running:
                 if itemnum[i] > 9:
                     temp = numbers[sep[1]]
                     screen.blit(temp,bnumbrs[i])
+    screen.blit(Money,(500,0))
+    money = 34
+    if money > 0:
+        if money < 10:
+            temp = money
+        else:
+            temp = math.floor(money/10)
+        screen.blit(numbers[temp], (500,0))
+    elif money > 9 and money < 100:
+        sep = [int(x) for x in str(money)]
+        screen.blit(numbers[sep[1]], (510, 0))
 
     framecount +=0.5
     pygame.display.flip()
