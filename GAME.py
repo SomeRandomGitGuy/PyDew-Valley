@@ -7,7 +7,7 @@ import random
 import math
 
 # VARIABLES
-money = 0
+money = 600
 buildings = 0
 shopop = 1
 shopopen = 0
@@ -144,7 +144,7 @@ siziofor = (200,200)
 TS = (250,250)
 SS = (120,120)
 HB = (270,100)
-HT = (100,100)
+HT = (64,64)
 
 # Scale the image to your needed size
 image = pygame.transform.scale(image, DEFAULT_IMAGE_SIZE)
@@ -252,6 +252,8 @@ def Blit_Building():
                 screen.blit(wind[round(buildimage)],(Buildingx[i]+x,Buildingy[i]+y))
     buildimage = framecount % 7
 
+def Enough_money(amount, id):
+    print("more coming")
 
 def Blit_Stones():
     for i in range(len(stone_x)):
@@ -469,16 +471,32 @@ while running:
                     temp = numbers[sep[1]]
                     screen.blit(temp,bnumbrs[i])
     screen.blit(Money,(500,0))
-    money = 34
-    if money > 0:
+    if money > -1:
         if money < 10:
             temp = money
-        else:
+        elif money < 100:
             temp = math.floor(money/10)
-        screen.blit(numbers[temp], (500,0))
-    elif money > 9 and money < 100:
+        elif money < 1000:
+            temp = math.floor(money/100)
+        elif money < 10000:
+            temp = math.floor(money/1000)
+        elif money < 100000:
+            temp = math.floor(money/10000)
+        else:
+            temp = 0
+        screen.blit(numbers[temp], (560,30))
+    if money > 9:
         sep = [int(x) for x in str(money)]
-        screen.blit(numbers[sep[1]], (510, 0))
+        screen.blit(numbers[sep[1]], (570, 30))
+    if money > 100:
+        sep = [int(x) for x in str(money)]
+        screen.blit(numbers[sep[2]], (580, 30))
+    if money > 1000:
+        sep = [int(x) for x in str(money)]
+        screen.blit(numbers[sep[3]], (590, 30))
+    if money > 10000 and money < 100000:
+        sep = [int(x) for x in str(money)]
+        screen.blit(numbers[sep[4]], (600, 30))
 
     framecount +=0.5
     pygame.display.flip()
