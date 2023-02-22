@@ -232,15 +232,19 @@ def Create_Building(id):
     buildings = 1
     newx = x*-1
     newy = y*-1
-    BuildingID.append(id)
     if id == 1:
-        Electricity +=2
-        Buildingx.append(newx + 320)
-        Buildingy.append(newy + 300)
+        if money ==  200 or money > 200:
+            Electricity +=2
+            Buildingx.append(newx + 320)
+            Buildingy.append(newy + 300)
+            BuildingID.append(id)
     else:
-        Electricity +=5
-        Buildingx.append(newx + 270)
-        Buildingy.append(newy + 100)
+        if money == 3000 or money > 3000:
+            Electricity +=5
+            Buildingx.append(newx + 270)
+            Buildingy.append(newy + 100)
+            BuildingID.append(id)
+
 
 def Blit_Building():
     global buildimage
@@ -252,8 +256,7 @@ def Blit_Building():
                 screen.blit(wind[round(buildimage)],(Buildingx[i]+x,Buildingy[i]+y))
     buildimage = framecount % 7
 
-def Enough_money(amount, id):
-    print("more coming")
+
 
 def Blit_Stones():
     for i in range(len(stone_x)):
