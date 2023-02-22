@@ -229,6 +229,8 @@ def Blit_Trees(Type):
 def Create_Building(id):
     global buildings
     global Electricity
+    global shopopen
+    global money
     buildings = 1
     newx = x*-1
     newy = y*-1
@@ -238,12 +240,16 @@ def Create_Building(id):
             Buildingx.append(newx + 320)
             Buildingy.append(newy + 300)
             BuildingID.append(id)
+            money -= 200
+            shopopen = 0
     else:
         if money == 3000 or money > 3000:
             Electricity +=5
             Buildingx.append(newx + 270)
             Buildingy.append(newy + 100)
             BuildingID.append(id)
+            money -= 3000
+            shopopen = 0
 
 
 def Blit_Building():
