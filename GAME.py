@@ -7,7 +7,7 @@ import random
 import math
 
 # VARIABLES
-money = 600
+money = 50000
 buildings = 0
 shopop = 1
 shopopen = 0
