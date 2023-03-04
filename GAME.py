@@ -198,11 +198,11 @@ Repeats = int((3000/spacing)-5)
 for i in range(Repeats):
     for x in range(40):
         CX = count*spacing
-        if random.randint(1,10) < 3:
+        if random.randint(1,10) < 3 and not (CY > 680 and CY < 1252):
             tree_x.append(CX)
             tree_y.append(CY)
         else:
-            if random.randint(1,15) < 2:
+            if random.randint(1,25) < 2:
                 mush_x.append(CX-15)
                 mush_y.append(CY+20)
         count+=1
