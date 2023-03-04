@@ -7,7 +7,7 @@ import random
 import math
 
 # VARIABLES
-money = 50000
+money = 200
 buildings = 0
 shopop = 1
 shopopen = 0
@@ -328,7 +328,7 @@ def mushpickup():
             if mush_y[i]+y-65 < cpos2+45 and mush_y[i]+y-65 > cpos2-20:
                 mush_x.remove(mush_x[i])
                 mush_y.remove(mush_y[i])
-                money += 50
+                money += 100
 
 
 
@@ -462,7 +462,7 @@ while running:
 
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_s:
+            if event.key == pygame.K_b:
                 shopopen = not shopopen
             if event.key == pygame.K_RETURN:
                 shopopen = False
@@ -470,7 +470,10 @@ while running:
                     Create_Building(1)
                 else:
                     Create_Building(2)
-
+            if event.key == pygame.K_s:
+                temporary = (itemnum[0]+itemnum[1]+itemnum[2]+itemnum[3]+itemnum[4]+itemnum[5])
+                itemnum = [0,0,0,0,0,0]
+                money += temporary
 
     if shopopen:
         if shopop == 1:
@@ -480,7 +483,7 @@ while running:
 
 
     #Blitting Hotbar
-    if hotbaractive == 1:
+    if hotbaractive == 1 and itemnum[0] > 1:
         for i in range(6):
             if hotbarid[i] == "wood":
                 screen.blit(wooditem, slots[i])
@@ -491,6 +494,7 @@ while running:
                 if itemnum[i] > 9:
                     temp = numbers[sep[1]]
                     screen.blit(temp,bnumbrs[i])
+
     screen.blit(Money,(500,0))
     if money > -1:
         if money < 10:
