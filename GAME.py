@@ -100,7 +100,7 @@ image2 = pygame.image.load('RESIZED.png').convert_alpha()
 image3 = pygame.image.load('TreeTop.png').convert_alpha()
 image6 = pygame.image.load('Stump.png').convert_alpha()
 image5 = pygame.image.load('rocks.png').convert_alpha()
-image7 = pygame.image.load('Stone.png').convert_alpha()
+mushroom = pygame.image.load('Mushroom-1.png').convert_alpha()
 Wind1 = pygame.image.load('Wind-1.png').convert_alpha()
 Wind2 = pygame.image.load('Wind-2.png').convert_alpha()
 Wind3 = pygame.image.load('Wind-3.png').convert_alpha()
@@ -142,7 +142,7 @@ Money = pygame.image.load("Money..png")
 DEFAULT_IMAGE_SIZE = (3000,3000)
 siziofor = (200,200)
 TS = (250,250)
-SS = (120,120)
+SS = (64,64)
 HB = (270,100)
 HT = (64,64)
 
@@ -150,7 +150,7 @@ HT = (64,64)
 image = pygame.transform.scale(image, DEFAULT_IMAGE_SIZE)
 image2 = pygame.transform.scale(image2, siziofor)
 image3 = pygame.transform.scale(image3, TS)
-image7 = pygame.transform.scale(image7, SS)
+mushroom = pygame.transform.scale(mushroom, SS)
 image6 = pygame.transform.scale(image6, TS)
 image5 = pygame.transform.scale(image5, DEFAULT_IMAGE_SIZE)
 RIVER = pygame.transform.scale(RIVER, (3000,480))
@@ -189,8 +189,8 @@ mixer.music.play()
 #Tree Creation
 tree_x = []
 tree_y = []
-stone_x = []
-stone_y = []
+mush_x = []
+mush_y = []
 count = 0
 CY = 0
 spacing = 80
@@ -202,9 +202,9 @@ for i in range(Repeats):
             tree_x.append(CX)
             tree_y.append(CY)
         else:
-            if random.randint(1,60) == 1:
-                stone_x.append(CX-15)
-                stone_y.append(CY+20)
+            if random.randint(1,15) < 2:
+                mush_x.append(CX-15)
+                mush_y.append(CY+20)
         count+=1
     CX = 0
     count = 0
@@ -265,8 +265,8 @@ def Blit_Building():
 
 
 def Blit_Stones():
-    for i in range(len(stone_x)):
-            screen.blit(image7,(stone_x[i]+x,stone_y[i]+y))
+    for i in range(len(mush_x)):
+            screen.blit(mushroom,(mush_x[i]+x,mush_y[i]+y))
 
 def Blit_Items():
     for i in range(len(itemsx)):
@@ -320,6 +320,17 @@ def TreeCollide():
                 tree_x.remove(tree_x[i])
                 tree_y.remove(tree_y[i])
     counting +=1
+
+def mushpickup():
+    global money
+    for i in range(len(mush_x)-1):
+        if mush_x[i]+x-100 < cpos2+30 and mush_x[i]+x-100 > cpos2-30:
+            if mush_y[i]+y-65 < cpos2+45 and mush_y[i]+y-65 > cpos2-20:
+                mush_x.remove(mush_x[i])
+                mush_y.remove(mush_y[i])
+                money += 50
+
+
 
 
 
@@ -420,6 +431,7 @@ while running:
     Blit_Trees(0)
     Blit_Building()
     screen.blit(RIVER, (0 + x, 972 + y))
+    mushpickup()
 
 
 
