@@ -7,6 +7,7 @@ import random
 import math
 
 # VARIABLES
+treecount = 0
 money = 200
 buildings = 0
 shopop = 1
@@ -129,13 +130,21 @@ n8 = pygame.image.load('Number-8.png').convert_alpha()
 n9 = pygame.image.load('Number-9.png').convert_alpha()
 n0 = pygame.image.load('Number-0.png').convert_alpha()
 MM = pygame.image.load('MM.png').convert_alpha()
-RIVER = pygame.image.load('RIVER.png').convert_alpha()
 numbers = [n0, n1, n2, n3, n4, n5, n6, n7, n8, n9]
+RIVER = pygame.image.load('RIVER.png').convert_alpha()
 shop1 = pygame.image.load("Shop1.png").convert_alpha()
 shop2 = pygame.image.load("Shop2.png").convert_alpha()
 Solar = pygame.image.load("Solar.png").convert_alpha()
 wind = [Wind1,Wind2,Wind3,Wind4,Wind5,Wind6,Wind7]
 Money = pygame.image.load("Money..png")
+Stage1 = pygame.image.load("Tree stages-1.png").convert_alpha()
+Stage2 = pygame.image.load("Tree stages-2.png").convert_alpha()
+Stage3 = pygame.image.load("Tree stages-3.png").convert_alpha()
+Stage4 = pygame.image.load("Tree stages-4.png").convert_alpha()
+Stage5 = pygame.image.load("Tree stages-5.png").convert_alpha()
+Stage6 = pygame.image.load("Tree stages-6.png").convert_alpha()
+
+
 
 
 # Set the size for the image
@@ -168,6 +177,17 @@ MM = pygame.transform.scale(MM, (740,500))
 shop1 = pygame.transform.scale(shop1,(512,512))
 shop2 = pygame.transform.scale(shop2,(512,512))
 Money = pygame.transform.scale(Money,(192,96))
+Stage1 = pygame.transform.scale(Stage1,(128,256))
+Stage2 = pygame.transform.scale(Stage2,(128,256))
+Stage3 = pygame.transform.scale(Stage3,(128,256))
+Stage4 = pygame.transform.scale(Stage4,(128,256))
+Stage5 = pygame.transform.scale(Stage5,(128,256))
+Stage6 = pygame.transform.scale(Stage6,(128,256))
+stages = [Stage1,Stage2,Stage3,Stage4,Stage5,Stage6]
+
+
+
+
 
 
 
@@ -189,6 +209,8 @@ mixer.music.play()
 #Tree Creation
 tree_x = []
 tree_y = []
+tree_stage = []
+tree_count = []
 mush_x = []
 mush_y = []
 count = 0
@@ -201,6 +223,8 @@ for i in range(Repeats):
         if random.randint(1,10) < 3 and not (CY > 680 and CY < 1252):
             tree_x.append(CX)
             tree_y.append(CY)
+            tree_stage.append(6)
+            tree_count.append(0)
         else:
             if random.randint(1,25) < 2:
                 mush_x.append(CX-15)
@@ -219,10 +243,18 @@ def Blit_Trees(Type):
     TreeCurrentx.clear()
     TreeCurrenty.clear()
     for i in range(len(tree_x)):
-        if Type == 1:
+        if Type == 1 and tree_stage[i] == 6:
             screen.blit(image3,(tree_x[i]+x,tree_y[i]+y))
-        else:
+        elif Type == 0 and tree_stage[i] == 6:
             screen.blit(image6,(tree_x[i]+x,tree_y[i]+y))
+        elif not tree_stage[i] == 6:
+            screen.blit(stages[(math.floor(tree_stage[i]))],(tree_x[i]+x+50,tree_y[i]+y))
+            tree_count[i] = treecount % random.randint(200,500)
+            if tree_count[i] == 100:
+                tree_stage[i] += 0.5
+
+
+
         TreeCurrentx.append(tree_x[i]+x)
         TreeCurrenty.append(tree_y[i]+y)
 
@@ -315,10 +347,12 @@ def TreeCollide():
     for i in range(len(TreeCurrentx)):
         if TreeCurrentx[i] < cpos2+30 and TreeCurrentx[i] > cpos2-30:
             if TreeCurrenty[i]+65 < cpos2+45 and TreeCurrenty[i]+65 > cpos2-20:
-                collide = 1
-                spawn_item(tree_x[i],tree_y[i],"1")
-                tree_x.remove(tree_x[i])
-                tree_y.remove(tree_y[i])
+                if tree_stage[i] == 6:
+                    spawn_item(tree_x[i],tree_y[i],"1")
+                    collide = 1
+                    tree_stage[i] = 0
+                else:
+                    collide = 0
     counting +=1
 
 def mushpickup():
@@ -524,6 +558,8 @@ while running:
         screen.blit(numbers[sep[4]], (600, 30))
 
     framecount +=0.5
+    treecount +=1
+
     pygame.display.flip()
         
 
