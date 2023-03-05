@@ -7,7 +7,7 @@ Amazing Features Include:
 - A river
 - A player
 - An ever growing pollution problem
-- And, finally a shop to by renewable resources to outpower the coal plant
+- And, finally a shop to buy renewable resources to outpower the coal plant
 
 This game is like a cross between Stardew Valley(Art Style) and Terraria(Growing Infection)
 
